@@ -1,0 +1,106 @@
+/******************************
+* Definitions
+*******************************/
+
+desktop = 1200px
+tablet =  767px
+mobile =  480px
+tablet-media = "(max-width: %s)" % tablet
+mobile-media = "(max-width: %s)" % mobile
+tablet-scale = (tablet/desktop)
+mobile-scale = (mobile/desktop)
+
+
+/******************************
+* Functions
+*******************************/
+
+vendor(prop, args)
+  -moz-{prop} args
+  -webkit-{prop} args
+  {prop} args
+
+border-radius()
+  vendor('border-radius', arguments)
+
+box-shadow()
+  vendor('box-shadow', arguments)
+
+gray(luminosity)
+  hsl(0, 0, luminosity)
+  
+.cf:before, .cf:after
+    content " "
+    display table
+.cf:after
+    clear both
+.cf
+    *zoom 1
+
+
+/******************************
+* Base
+*******************************/
+
+*
+  box-sizing border-box
+
+body
+  font-family "Open Sans"
+  font-weight 300
+  font-size 150%
+  line-height 1.5
+
+h1,h2,h3
+  line-height 1
+  font-weight 300
+
+a
+  text-decoration none
+
+li
+  line-height 1.2
+
+p
+  margin-bottom 1.5em
+
+label, input, button, select, textarea
+  font-weight 300
+  font-size 16px
+
+.btn
+  font-weight 700
+
+
+/******************************
+* Modules
+*******************************/
+
+.vert
+  display inline-block
+  vertical-align middle
+
+center-spaced(space = 10%)
+  overflow auto
+  text-align center
+  &> *
+    display inline-block
+    margin-right space
+    &:last-child
+      margin-right 0
+.center-spaced
+  center-spaced()
+
+.big-announce
+  font-size 156%
+  line-height 1.5
+
+.announce
+  font-size 140%
+  line-height 1.5
+
+
+/******************************
+* Page-Specific
+*******************************/
+

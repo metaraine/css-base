@@ -1,0 +1,433 @@
+/* colors */
+/*
+blue = #009fdf
+overlay-blue = #1DA8E6
+               rgba(6, 152, 222, 0.9)
+orange = #fc8200
+gray = #6a6a6a
+*/
+
+@font-face {
+  font-family: CharlesModern;
+  src: url(fonts/ttf/CharlesModern.ttf) format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* defaults */
+body {
+  font-family: CharlesModern;
+  font-size: 16px;
+  color: #009fdf;
+  padding-bottom: 200px;
+  position: relative; /* needed for full-screen modal */
+  min-width: 638px; /* must match chart size or overlay doesn't cover full sceren on mobile */
+}
+
+a {
+  color: #009fdf;
+}
+
+img { max-width: 100%; }
+img.noscale { max-width: inherit; }
+
+h1 {
+  margin: 62px 0;
+}
+
+h2 {
+  margin: 4px;
+}
+
+/* utility */
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.left { float: left; }
+.right { float: right; }
+
+.divider {
+  border: solid 2px #aaa;
+  height: 87px;
+  width: 0px;
+  display: inline-block;
+  margin: 20px;
+}
+
+.wide {
+  width: 100%;
+}
+
+.center-v > * {
+  vertical-align: middle;
+}
+
+.container {
+  min-width: 638px; /* chart size */
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 20px;
+  overflow: hidden; /* prevent right-most chart dot from extending beyond the right edge of the page and messing up the page width on mobile */
+}
+
+.container-md {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.container-sm {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.space-sm > * { margin: 10px; }
+.space-md > * { margin: 20px; }
+.space-lg > * { margin: 40px; }
+.space-xl > * { margin: 75px; }
+.space-giant > * { margin: 165px; }
+
+.space-above-sm { margin-top: 10px; }
+.space-above-md { margin-top: 20px; }
+.space-above-lg { margin-top: 40px; }
+.space-above-xl { margin-top: 75px; }
+.space-above-giant { margin-top: 165px; }
+
+.space-below-sm { margin-bottom: 10px; }
+.space-below-md { margin-bottom: 20px; }
+.space-below-lg { margin-bottom: 40px; }
+.space-below-xl { margin-bottom: 75px; }
+.space-below-giant { margin-bottom: 165px; }
+
+.space-h-sm > * { margin-left: 10px; margin-right: 10px; }
+.space-h-md > * { margin-left: 20px; margin-right: 20px; }
+.space-h-lg > * { margin-left: 40px; margin-right: 40px; }
+.space-h-xl > * { margin-left: 75px; margin-right: 75px; }
+.space-h-giant > * { margin-left: 165px; margin-right: 165px; }
+
+.space-v-sm > * { margin-top: 10px; margin-bottom: 10px; }
+.space-v-md > * { margin-top: 20px; margin-bottom: 20px; }
+.space-v-lg > * { margin-top: 40px; margin-bottom: 40px; }
+.space-v-xl > * { margin-top: 75px; margin-bottom: 75px; }
+.space-v-giant > * { margin-top: 165px; margin-bottom: 165px; }
+
+.text-sm { font-size: 14px; }
+.text-md { font-size: 18px; }
+.text-lg { font-size: 20px; }
+
+.none { display: none; }
+.hidden { visibility: hidden; }
+.fadedout { opacity: 0; }
+
+.light { font-weight: normal; }
+
+.overlay-container { position: relative; }
+.overlay { position: absolute; } /* must come after .overlay-container so that elements that are both an overlay (of an ancester) and an overlay-container (of a descendant) will use position:absolute. */
+.rel { position: relative; } /* not conflated with overlay-container for semantic reasons. */
+.fixed { position: fixed; }
+
+.block { display: inline-block; }
+
+.clip { overflow: hidden; }
+
+/* brand styles */
+
+.brand-link {
+  color: #666;
+  text-decoration: none;
+}
+
+.header {
+  line-height: 87px;
+}
+
+.button {
+  background-color: #fc8200;
+  padding: 14px 53px 14px 39px; /* Make right padding 14px bigger to account for button-arrow */
+  font-size: 16px;
+  border: none;
+  color: white;
+  background-image: url(images/button-arrow.png);
+  background-repeat: no-repeat;
+  background-position: 97.5% center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1060px;
+  }
+}
+
+.col {
+  float: left;
+  margin-right: 38px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+@media (min-width: 1024px) {
+  .col:first-child {
+    width: 420px;
+  }
+}
+
+/* HACK: pseudo-center; */
+@media (max-width: 1023px) {
+  .col:last-child {
+    margin-left: 7%;
+  }
+}
+
+.main-chart {
+  min-width: 553px;
+}
+
+.overlay-instructions {
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.overlay-explanation {
+  width: 200px;
+  top: 10px;
+  left: 83px;
+}
+
+.overlay-fee-weight {
+  bottom: 72px;
+  left: 51px;
+}
+
+.overlay-hotspot1 {
+  left: 141px;
+  bottom: 121px;
+}
+.overlay-hotspot2 {
+  left: 250px;
+  bottom: 165px;
+}
+.overlay-hotspot3 {
+  left: 385px;
+  bottom: 235px;
+}
+.overlay-hotspot4 {
+  left: 530px;
+  bottom: 351px;
+}
+
+@-webkit-keyframes pulse
+{
+  0% {-webkit-transform: scale(0); opacity: 0;}
+  8% {-webkit-transform: scale(0); opacity: 0;}
+  15% {-webkit-transform: scale(0.1); opacity: 1;}
+  30% {-webkit-transform: scale(0.5); opacity: 1;}
+  100% {opacity: 0; -webkit-transform: scale(1);}
+}
+
+@-moz-keyframes pulse
+{
+  0% {-moz-transform: scale(0); opacity: 0;}
+  8% {-moz-transform: scale(0); opacity: 0;}
+  15% {-moz-transform: scale(0.1); opacity: 1;}
+  30% {-moz-transform: scale(0.5); opacity: 1;}
+  100% {opacity: 0; -moz-transform: scale(1);}
+}
+
+.dot-core {
+  width: 31px;
+  height: 31px;
+  background: #fc8200;
+  border-radius: 999px;
+  position: absolute;
+  z-index: 20;
+}
+
+.dot-ring {
+  position: absolute;
+  margin-left: -34px;
+  margin-top: -34px;
+  border-radius: 999px;
+  z-index: 10;
+}
+
+.dot-animate .dot-ring {
+  border: 50px solid rgba(252,130,0,0.2);
+  -webkit-animation: pulse 2s linear infinite;
+  -moz-animation: pulse 2s linear infinite;
+}
+
+.orange-circle {
+  width: 133px;
+  height: 133px;
+  line-height: 133px;
+  background: #fc8200;
+  border-radius: 999px;
+  text-align: center;
+  display: inline-block;
+  z-index: 20;
+  position: relative;
+}
+
+.orange-circle > * {
+  vertical-align: middle;
+}
+
+.call-ring {
+  position: absolute;
+  margin-left: 64px;
+  margin-top: -207px;
+  border-radius: 999px;
+  z-index: 10;
+  border: 140px solid rgba(252,130,0,0.2);
+  -webkit-animation: pulse 2s linear infinite;
+  -moz-animation: pulse 2s linear infinite;
+}
+
+.pulse {
+  -webkit-animation: pulse 2s linear infinite;
+  -moz-animation: pulse 2s linear infinite;
+}
+
+.text-dark {
+  color: black;
+}
+
+.boxed {
+  display: inline-block;
+  border: solid 1px black;
+  padding: 10px;
+}
+
+.popup {
+  background-color: #fc8200;
+  color: white;
+  line-height: 2em;
+  z-index: 100;
+}
+
+@media (min-width: 1024px) {
+  .popup {
+    width: 750px; /* can't use max-width because then the popup is bounded by the column width */
+  }
+}
+
+.close {
+  font-size: 48px;
+  color: white;
+  text-decoration: none;
+  padding: 0 0 30px 30px; /* additional tapping area */
+}
+
+.overlay-popup {
+  bottom: 75px; /* height of popup-arrow + 7px padding */
+  right: 0;
+}
+
+.overlay-close {
+  top: 15px;
+  right: 22px;
+}
+
+.overlay-popup-arrow {
+  bottom: -68px; /* offset by the height of the arrow. */
+}
+
+.modal {
+  background-color: rgba(6, 152, 222, 0.9);
+  color: white;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.modal .close {
+  top: 10px;
+}
+
+.fineprint {
+  color: #6a6a6a;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 57px solid transparent;
+  border-right: 57px solid transparent;
+  border-top: 57px solid #fc8200;
+}
+
+.fee-weight-clipper {
+  width: 0;
+}
+
+.telephone {
+  display: inline-block;
+}
+
+.telephone > .tip {
+  color: black;
+  width: 170px;
+  height: 40px;
+  position: absolute;
+  padding: 10px;
+  right: -7px;
+  bottom: -32px;
+  background-color: #FFF;
+  text-indent: 0;
+  -webkit-box-shadow: #999 0 0 10px 2px;
+  -moz-box-shadow: #999 0 0 10px 2px;
+  box-shadow: #999 0 0 10px 2px;
+  line-height: 22px;
+  display: none;
+}
+
+.telephone > .tip:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #FFF;
+    position: absolute;
+    top: -5px;
+    right: 22px;
+}
+
+.telephone.touch:hover > .tip {
+    display: none;
+}
+.telephone:hover > .tip,
+.telephone.active.touch > .tip {
+    display: block;
+}
+
+@media (max-width: 1023px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
